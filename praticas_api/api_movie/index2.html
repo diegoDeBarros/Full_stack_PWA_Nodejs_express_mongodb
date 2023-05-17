@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <title>Busca de Filmes</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+  <!-- Hotjar Tracking Code for https://pedantic-clarke-ebf939.netlify.app/ -->
+
+	<script>
+    /*
+		(function(h,o,t,j,a,r){
+			h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+			h._hjSettings={hjid:2434567,hjsv:6};
+			a=o.getElementsByTagName('head')[0];
+			r=o.createElement('script');r.async=1;
+			r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+			a.appendChild(r);
+		})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    */
+	</script>
+</head>
+
+<body>
+
+  <div class="jumbotron text-center">
+    <h1>Busca de Filmes</h1>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+
+          <form>
+            <input id="nameMovie" class="form-control" type="text" placeholder="Digite o nome do filme...">
+            <br />
+            <a class="btn btn-primary" onclick="postAnime('anime')">Buscar</a>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h3 id='title'></h3>
+        <p id='description'></p>
+        <p id='imdb'></p>
+        <img id="my_image" class="img-fluid">
+      </div>
+    </div>
+  </div>
+  <br />
+
+  <script>
+    function postAnime(anime) {
+    $.ajax({
+      url: 'http://127.0.0.1:3000/add',
+      type: 'POST',
+      data: anime,
+      success: function(response) {
+        console.log('Anime adicionado com sucesso:', response);
+      },
+      error: function(error) {
+        console.error('Erro ao adicionar o anime:', error);
+      }
+    });
+  }
+
+  // Exemplo de uso da função postAnime
+  var novoAnime = {
+    title: 'Tokyo revengers',
+    description: 'Com uma linha temporal alterada, Tokyo Revengers é um anime repleto de viagem no tempo e gangues juvenis. Na animação japonesa, um jovem-adulto virgem de 26 anos chamado Takemichi passa por uma experiência de quase-morte ao ser empurrado em direção a um trilho de trem.',
+    year: 2023
+};
+
+postAnime(novoAnime);
+
+  </script>
+
+</body>
+
+</html>
