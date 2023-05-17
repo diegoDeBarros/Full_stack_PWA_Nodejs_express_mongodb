@@ -9,6 +9,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  
 
   <!-- Hotjar Tracking Code for https://pedantic-clarke-ebf939.netlify.app/ -->
 
@@ -28,6 +29,52 @@
 
 <body>
 
+  <script>
+    function openAnimeModal() {
+      // Faz uma requisição GET para obter o primeiro registro de anime
+      $.ajax({
+        url: '/anime',
+        type: 'GET',
+        success: function(response) {
+          // Verifica se há registros de anime retornados
+          if (response.animes.length > 0) {
+            // Preenche o modal com as informações do primeiro registro
+            var anime = response.animes[0];
+            $('#modalTitle').text(anime.title);
+            $('#modalDescription').text(anime.description);
+            $('#modalYear').text(anime.year);
+            $('#animeModal').modal('show'); // Abre o modal
+          }
+        },
+        error: function(error) {
+          console.error('Erro ao obter registros de anime:', error);
+        }
+      });
+    }
+  </script>
+
+<button type="button" class="btn btn-primary" onclick="openAnimeModal()">Abrir Modal</button>
+
+<!-- Modal de Exibição de Anime -->
+<div class="modal fade" id="animeModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Título do Anime</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="modalDescription">Descrição do Anime</p>
+        <p>Ano: <span id="modalYear"></span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
   <div class="jumbotron text-center">
     <h1>Busca de Filmes</h1>
 
@@ -36,9 +83,9 @@
         <div class="col-sm-12">
 
           <form>
-            <input id="nameMovie" class="form-control" type="text" placeholder="Digite o nome do filme...">
+            <a class="btn btn-primary" onclick="postAnime('anime')">Adicionar registro</a>
             <br />
-            <a class="btn btn-primary" onclick="postAnime('anime')">Buscar</a>
+            <a class="btn btn-primary" onclick="getFirstAnime()">Trazer o primeiro registro de anime</a>
           </form>
 
         </div>
@@ -46,6 +93,7 @@
     </div>
   </div>
 
+<!--
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
@@ -56,7 +104,7 @@
       </div>
     </div>
   </div>
-  <br />
+  <br />-->
 
   <script>
     function postAnime(anime) {
@@ -81,8 +129,10 @@
 };
 
 postAnime(novoAnime);
-
   </script>
+
+  
+  
 
 </body>
 
