@@ -2,13 +2,15 @@
 <html lang="pt-br">
 
 <head>
-  <title>Busca de Filmes</title>
+  <title>Fui humilhado por um simples get</title>
   <meta charset="utf-8">
+  <meta name="theme-color" content="#ffffff">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <link rel="manifest" href="./manifest.json">
   
 
   <!-- Hotjar Tracking Code for https://pedantic-clarke-ebf939.netlify.app/ -->
@@ -28,7 +30,17 @@
 </head>
 
 <body>
-
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js')
+        .then(function(registration) {
+          console.log('Service Worker registrado com sucesso:', registration);
+        })
+        .catch(function(error) {
+          console.log('Falha ao registrar o Service Worker:', error);
+        });
+    }
+  </script>
   <script>
     function openAnimeModal() {
       // Faz uma requisição GET para obter o primeiro registro de anime
@@ -52,8 +64,9 @@
       });
     }
   </script>
+  
 
-<button type="button" class="btn btn-primary" onclick="openAnimeModal()">Abrir Modal</button>
+
 
 <!-- Modal de Exibição de Anime -->
 <div class="modal fade" id="animeModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
@@ -76,7 +89,7 @@
   </div>
 </div>
   <div class="jumbotron text-center">
-    <h1>Busca de Filmes</h1>
+    <h1>Fui humilhado por um simples get</h1>
 
     <div class="container">
       <div class="row">
@@ -85,7 +98,10 @@
           <form>
             <a class="btn btn-primary" onclick="postAnime('anime')">Adicionar registro</a>
             <br />
-            <a class="btn btn-primary" onclick="getFirstAnime()">Trazer o primeiro registro de anime</a>
+            <br>
+            <br>
+            <button type="button" onclick="getHelloWorld()">Usar o GET</button>
+
           </form>
 
         </div>
@@ -93,6 +109,7 @@
     </div>
   </div>
 
+  <h1 id="helloWorld"></h1>
 <!--
   <div class="container">
     <div class="row">
@@ -105,7 +122,9 @@
     </div>
   </div>
   <br />-->
+  
 
+  
   <script>
     function postAnime(anime) {
     $.ajax({
@@ -135,5 +154,35 @@ postAnime(novoAnime);
   
 
 </body>
-
-</html>
+<script>
+  /*
+  if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(function(registration) {
+        console.log('Service Worker registrado com sucesso:', registration);
+      })
+      .catch(function(error) {
+        console.error('Falha ao registrar o Service Worker:', error);
+      });
+  });
+}
+  */
+  
+</script>
+</html><script>
+    function getHelloWorld() {
+      $.ajax({
+        url: 'http://127.0.0.1:3000/',
+        type: 'GET',
+        success: function(response) {
+          console.log('Resposta do servidor:', response);
+          // Exibir a resposta em algum elemento HTML
+          $('#helloWorld').text(response);
+        },
+        error: function(error) {
+          console.error('Erro ao obter "Hello, World!":', error);
+        }
+      });
+    }
+  </script>

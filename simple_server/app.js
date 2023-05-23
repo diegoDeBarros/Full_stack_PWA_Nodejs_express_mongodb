@@ -32,12 +32,11 @@ app.post('/add', (req, res) => {
     }
   });
 });
-app.use('/anime', animeRoute);
+//app.use('/anime', animeRoute);
 
-app.get('/', function(req, res){
-   res.send("Hello World!");
+app.get('/', function(req, res) {
+  res.send('Hello, World!');
 });
-
 
 
 //app.use(bodyParser.urlencoded({ extended: true }));

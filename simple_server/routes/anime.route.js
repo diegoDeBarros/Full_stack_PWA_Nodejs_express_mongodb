@@ -26,6 +26,7 @@ animeRoutes.route('/').get(function (req, res) {
       res.status(200).json({'status': 'success','animes': animes});
     }
   });
+  res.send('Hello, World!');
 });
 
 // api to get anime
