@@ -1,3 +1,3 @@
 # Full_stack_PWA_Nodejs_express_mongodb
-Atividade individual full stack
+Repositório para a entrega de atividade simples da faculdade
 
